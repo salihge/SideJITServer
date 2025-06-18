@@ -35,14 +35,12 @@ jobs:
           cache: 'pip'
           cache-dependency-path: |
             **/requirements*.txt
-
       # Install dependencies
       - name: Install Dependencies and Build sdist
         run: |
           pip install -r requirements.txt
           pip install -U build setuptools
           python -m build # create the sdist build to populate the __version__ var
-
       # Build python script into a standalone exe
       - name: Build Executable
         uses: Nuitka/Nuitka-Action@main
@@ -66,7 +64,6 @@ jobs:
             build/*.exe
             build/*.bin
             # build/*.app/**/*
-
       - name: Check if executable runs (.exe)
         if: ${{ runner.os == 'Windows' }}
         run: ./build/*.exe --version
